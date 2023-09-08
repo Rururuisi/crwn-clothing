@@ -1,4 +1,4 @@
-import "./sign-up-form.styles.scss";
+import { SignUpContainer } from "./sign-up-form.styles";
 import { useState } from "react";
 import {
     createAuthUserWithEmailAndPassword,
@@ -50,7 +50,7 @@ function SignUpForm() {
     };
 
     return (
-        <div className="sign-up-container">
+        <SignUpContainer>
             <h2>Don't Have an Account? </h2>
             <span>Sign Up with Email and Password</span>
             <form onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ function SignUpForm() {
                 />
                 <Button type="submit">Sign Up</Button>
             </form>
-        </div>
+        </SignUpContainer>
     );
 }
 

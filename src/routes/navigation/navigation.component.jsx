@@ -1,6 +1,12 @@
-import "./navigation.styles.scss";
-import { Fragment, useContext, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import {
+    NavigationContainer,
+    LogoContainer,
+    NavLinksContainer,
+    NavLink,
+} from "./navigation.styles";
+
+import { Fragment, useContext } from "react";
+import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../contexts/user.context";
 import { CartContext } from "../../contexts/cart.context";
@@ -18,30 +24,24 @@ function Navigation() {
 
     return (
         <Fragment>
-            <div className="navigation">
-                <Link className="logo-container" to="/">
+            <NavigationContainer>
+                <LogoContainer to="/">
                     <CrwnLogo className="logo">Logo</CrwnLogo>
-                </Link>
-                <div className="nav-links-container">
-                    <Link className="nav-link" to="/home">
-                        HOME
-                    </Link>
-                    <Link className="nav-link" to="/shop">
-                        SHOP
-                    </Link>
+                </LogoContainer>
+                <NavLinksContainer>
+                    <NavLink to="/">HOME</NavLink>
+                    <NavLink to="/shop">SHOP</NavLink>
                     {currentUser ? (
-                        <span className="nav-link" onClick={signOutHandler}>
+                        <NavLink as="span" onClick={signOutHandler}>
                             SIGN OUT
-                        </span>
+                        </NavLink>
                     ) : (
-                        <Link className="nav-link" to="/auth">
-                            SIGN IN
-                        </Link>
+                        <NavLink to="/auth">SIGN IN</NavLink>
                     )}
                     <CartIcon />
-                </div>
+                </NavLinksContainer>
                 {isCartOpen && <CartDropdown />}
-            </div>
+            </NavigationContainer>
             <Outlet />
         </Fragment>
     );

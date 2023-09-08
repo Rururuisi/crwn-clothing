@@ -1,4 +1,4 @@
-import "./sign-in-form.styles.scss";
+import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 import { useState } from "react";
 import {
     signInWithGooglePopup,
@@ -57,7 +57,7 @@ function SignInForm() {
     };
 
     return (
-        <div className="sign-in-container">
+        <SignInContainer>
             <h2>Already Have an Account? </h2>
             <span>Sign In with Email and Password</span>
             <form onSubmit={handleSubmit}>
@@ -77,7 +77,7 @@ function SignInForm() {
                     name="password"
                     required
                 />
-                <div className="buttons-container">
+                <ButtonsContainer>
                     <Button>Sign In</Button>
                     <Button
                         type="button"
@@ -86,9 +86,9 @@ function SignInForm() {
                     >
                         Google Sign In
                     </Button>
-                </div>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 }
 
