@@ -20,7 +20,6 @@ import {
     query,
     getDocs,
 } from "firebase/firestore";
-import SHOP_DATA from "../../shop-data";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBHpRHNW4I5lCbViei6RnJ-VWR5EKLoT5g",
@@ -32,7 +31,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
     prompt: "select_account",

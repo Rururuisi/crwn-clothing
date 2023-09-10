@@ -5,7 +5,7 @@ function FormInput({ label, ...otherProps }) {
         <Group>
             <StyledFormInput {...otherProps} />
             {label && (
-                <FormInputLabel shrink={otherProps.value.length ? true : false}>
+                <FormInputLabel shrink={otherProps.value.length}>
                     {label}
                 </FormInputLabel>
             )}
