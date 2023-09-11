@@ -7,15 +7,20 @@ import {
     Value,
     RemoveButton,
 } from "./checkout-item.styles";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import {
+    addItemToCart,
+    reduceItemFromCart,
+    removeItemFromCart,
+} from "../../store/cart/cart.action";
 
 function CheckoutItem({ checkoutItem }) {
+    const dispatch = useDispatch();
+    const cartItems = useSelector(selectCartItems);
     const { name, imageUrl, quantity, price } = checkoutItem;
-
-    const { addItemToCart, reduceItemFromCart, removeItemFromCart } =
-        useContext(CartContext);
 
     return (
         <CheckoutItemContainer>
@@ -24,16 +29,28 @@ function CheckoutItem({ checkoutItem }) {
             </ImageContainer>
             <CheckoutItemInfo>{name}</CheckoutItemInfo>
             <Quantity>
-                <Arrow onClick={() => reduceItemFromCart(checkoutItem)}>
+                <Arrow
+                    onClick={() =>
+                        dispatch(reduceItemFromCart(cartItems, checkoutItem))
+                    }
+                >
                     &#10094;
                 </Arrow>
                 <Value>{quantity}</Value>
-                <Arrow onClick={() => addItemToCart(checkoutItem)}>
+                <Arrow
+                    onClick={() =>
+                        dispatch(addItemToCart(cartItems, checkoutItem))
+                    }
+                >
                     &#10095;
                 </Arrow>
             </Quantity>
             <CheckoutItemInfo>${price}</CheckoutItemInfo>
-            <RemoveButton onClick={() => removeItemFromCart(checkoutItem)}>
+            <RemoveButton
+                onClick={() =>
+                    dispatch(removeItemFromCart(cartItems, checkoutItem))
+                }
+            >
                 &#10005;
             </RemoveButton>
         </CheckoutItemContainer>
