@@ -9,6 +9,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 function Category() {
     const { category } = useParams();
     const categoriesMap = useSelector(selectCategoriesMap);
+    console.log(categoriesMap);
     const [products, setProducts] = useState(categoriesMap[category]);
 
     useEffect(() => {
