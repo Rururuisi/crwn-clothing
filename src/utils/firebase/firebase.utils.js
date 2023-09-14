@@ -66,7 +66,10 @@ export const getCategoriesAndDocuments = async () => {
     return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
+export const createUserDocumentFromAuth = async (
+    userAuth,
+    additionalInfo = {}
+) => {
     if (!userAuth) return;
 
     const userDocRef = doc(db, "users", userAuth.uid);
@@ -85,7 +88,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
             console.log("error creating the user", err.message);
         }
     }
-    return userDocRef;
+    return userSnapShot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -102,3 +105,16 @@ export const signOutUser = () => signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
     onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
+};
