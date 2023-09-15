@@ -10,6 +10,7 @@ import {
     selectCartCheckout,
 } from "../../store/cart/cart.selector";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import PaymentForm from "../../components/payment-form/payment-form.component";
 
 const headers = ["Product", "Description", "Quantity", "Price", "Remove"];
 
@@ -30,6 +31,7 @@ function Checkout() {
                 <CheckoutItem key={cartItem.id} checkoutItem={cartItem} />
             ))}
             <Total>Total: ${checkout}</Total>
+            <PaymentForm />
         </CheckoutContainer>
     );
 }
