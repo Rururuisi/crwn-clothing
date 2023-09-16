@@ -29,11 +29,13 @@
     "sass": "^1.66.1",
     "stripe": "^13.5.0",
     "styled-components": "^6.0.7",
+    "typed-redux-saga": "^1.5.0",
     "typescript": "^5.2.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-macros": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
