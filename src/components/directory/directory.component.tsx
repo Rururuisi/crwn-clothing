@@ -1,5 +1,8 @@
 import { DirectoryContainer } from "./directory.styles";
+import { Category } from "../../store/categories/category.type";
 import DirectoryItem from "../directory-item/directory-item.component";
+
+
 
 const categories = [
     {
@@ -34,11 +37,13 @@ const categories = [
     },
 ];
 
+type CategoryType = Category & {route: string, id: number};
+
 function Directory() {
     return (
         <DirectoryContainer>
             {categories.map((category) => (
-                <DirectoryItem category={category} key={category.id} />
+                <DirectoryItem category={category as CategoryType} key={category.id} />
             ))}
         </DirectoryContainer>
     );

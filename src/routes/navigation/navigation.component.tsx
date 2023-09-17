@@ -34,7 +34,7 @@ function Navigation() {
                     <NavLink to="/">HOME</NavLink>
                     <NavLink to="/shop">SHOP</NavLink>
                     {currentUser ? (
-                        <NavLink as="span" onClick={signOutHandler}>
+                        <NavLink as="span" to="" onClick={signOutHandler}>
                             SIGN OUT
                         </NavLink>
                     ) : (

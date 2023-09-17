@@ -1,6 +1,8 @@
 import { SignUpContainer } from "./sign-up-form.styles";
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
+
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 import { signUpStart } from "../../store/user/user.action";
 
@@ -19,14 +21,14 @@ function SignUpForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
-    const handleChange = (evt) => {
+    const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = evt.target;
         setFormFields({ ...formFields, [name]: value });
     };
 
     const resetFormField = () => setFormFields(defaultFormFields);
 
-    const handleSubmit = async (evt) => {
+    const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match! ");
@@ -37,10 +39,10 @@ function SignUpForm() {
             dispatch(signUpStart(email, password, displayName));
             resetFormField();
         } catch (err) {
-            if (err.code === "auth/email-already-in-use") {
+            if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
                 alert("Cannot create user, email already in use! ");
             } else {
-                console.log("User Creation Encountered an Error", err.message);
+                console.log("User Creation Encountered an Error", err);
             }
         }
     };

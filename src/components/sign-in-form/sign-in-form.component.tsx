@@ -1,6 +1,8 @@
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
+
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 import {
     googleSignInStart,
@@ -8,7 +10,7 @@ import {
 } from "../../store/user/user.action";
 
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 const defaultFormFields = {
     displayName: "",
@@ -17,7 +19,7 @@ const defaultFormFields = {
     confirmPassword: "",
 };
 
-function SignInForm() {
+const SignInForm = () => {
     const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
@@ -26,31 +28,31 @@ function SignInForm() {
         dispatch(googleSignInStart());
     };
 
-    const handleChange = (evt) => {
+    const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = evt.target;
         setFormFields({ ...formFields, [name]: value });
     };
 
     const resetFormField = () => setFormFields(defaultFormFields);
 
-    const handleSubmit = async (evt) => {
+    const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
         try {
             dispatch(emailSignInStart(email, password));
             resetFormField();
         } catch (err) {
-            switch (err.code) {
-                case "auth/wrong-password":
+            switch ((err as AuthError).code) {
+                case AuthErrorCodes.INVALID_PASSWORD:
                     alert("Incorrect Password for Email! ");
                     break;
-                case "auth/user-not-found":
+                case AuthErrorCodes.USER_DELETED:
                     alert("User Not Found! ");
                     break;
                 default:
                     console.log(
                         "User Sign In Encountered an Error",
-                        err.message
+                        err
                     );
             }
         }
@@ -81,7 +83,7 @@ function SignInForm() {
                     <Button>Sign In</Button>
                     <Button
                         type="button"
-                        buttonType="google"
+                        buttonType={BUTTON_TYPE_CLASSES.google}
                         onClick={signInWithGoogle}
                     >
                         Google Sign In
