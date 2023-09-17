@@ -86,3 +86,5 @@ export const removeItemFromCart = (
 ) => {
     return setCartItems(removeCartItem(cartItems, cartItemToRemove));
 };
+
+export const emptyCart = () => setCartItems([]);

@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { StripeCardElement } from "@stripe/stripe-js";
 
@@ -10,15 +11,18 @@ import {
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectCartCheckout } from "../../store/cart/cart.selector";
+import { emptyCart } from "../../store/cart/cart.action";
 
 import { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 const ifValidCardElement = (card: StripeCardElement | null): card is StripeCardElement => card !== null;
 
+
 function PaymentForm() {
+    const dispatch = useDispatch();
     const stripe = useStripe();
     const elements = useElements();
-
+    
     const currentUser = useSelector(selectCurrentUser);
     const cartCheckout = useSelector(selectCartCheckout);
 
@@ -66,6 +70,8 @@ function PaymentForm() {
         } else {
             if (paymentResult.paymentIntent.status === "succeeded") {
                 alert("Payment Successful!");
+                dispatch(emptyCart());
+                elements?.getElement('card')?.clear();
             }
         }
     };
