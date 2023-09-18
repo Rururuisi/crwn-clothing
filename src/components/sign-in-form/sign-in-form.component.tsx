@@ -1,7 +1,6 @@
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 
@@ -22,7 +21,6 @@ const defaultFormFields = {
 
 const SignInForm = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
@@ -44,7 +42,6 @@ const SignInForm = () => {
         try {
             dispatch(emailSignInStart(email, password));
             resetFormField();
-            navigate("/");
         } catch (err) {
             switch ((err as AuthError).code) {
                 case AuthErrorCodes.INVALID_PASSWORD:
