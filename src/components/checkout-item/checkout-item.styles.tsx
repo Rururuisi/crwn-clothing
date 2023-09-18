@@ -22,6 +22,10 @@ export const ImageContainer = styled.div`
 
 export const CheckoutItemInfo = styled.span`
     width: 23%;
+
+    @media screen and (max-width: 450px){
+        font-size: 18px;
+    }
 `;
 
 export const Quantity = styled(CheckoutItemInfo)`

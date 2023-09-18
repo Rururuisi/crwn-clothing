@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "../button/button.component";
 
 export const PaymentFormContainer = styled.div`
+    width: 100%;
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -11,7 +12,7 @@ export const PaymentFormContainer = styled.div`
 
 export const FormContainer = styled.form`
     height: 100px;
-    min-width: 500px;
+    width: 100%;
 `;
 
 export const PaymentButton = styled(Button)`

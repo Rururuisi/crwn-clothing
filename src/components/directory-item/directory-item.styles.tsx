@@ -13,8 +13,7 @@ export const BackgroundImage = styled.div<BackgroundImageProps>`
 `;
 
 export const DirectoryItemBody = styled.div`
-    height: 90px;
-    padding: 0 25px;
+    padding: 10px 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,6 +22,14 @@ export const DirectoryItemBody = styled.div`
     background-color: white;
     opacity: 0.7;
     position: absolute;
+
+    @media screen and (max-width: 469px){
+        height: 100px;
+    }
+
+    @media screen and (max-width: 378px){
+        padding: 10px 40px;
+    }
 
     h2 {
         font-weight: bold;
